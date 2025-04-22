@@ -11,39 +11,34 @@ import streamlit as st
 import pandas as pd
 from pycaret.classification import load_model, predict_model
 
-st.set_page_config(page_title="Credit Scoring App", layout="wide")
-st.title("🏦 Credit Scoring App")
+st.set_page_config(page_title="Credit Scoring com PyCaret", layout="wide")
+st.title("🏦 Credit Scoring App (via PyCaret)")
 
-# Upload do arquivo CSV
-uploaded_file = st.file_uploader("📁 Faça upload do arquivo CSV para escoragem", type=["csv"])
+# 📁 Upload do arquivo CSV
+uploaded_file = st.file_uploader("Faça upload do arquivo CSV para escoragem", type=["csv"])
 
-# Carrega modelo treinado
+# 📦 Carregar modelo salvo pelo PyCaret
 @st.cache_resource
 def carregar_modelo():
-    return joblib.load("modelo_lightgbm_pycaret.pkl")
+    return load_model("modelo_lightgbm_pycaret")
 
 modelo = carregar_modelo()
 
-# Quando o usuário envia o arquivo
+# ✅ Quando o arquivo for enviado
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
 
     st.subheader("📄 Dados carregados:")
     st.dataframe(df.head())
 
-    # Aplicar modelo
-    predicoes = modelo.predict(df)
-    probas = modelo.predict_proba(df)[:, 1]
-
-    df_resultado = df.copy()
-    df_resultado["score_proba"] = probas
-    df_resultado["classificacao"] = predicoes
+    # 🔮 Previsões
+    resultado = predict_model(modelo, data=df)
 
     st.subheader("📊 Resultado da escoragem:")
-    st.dataframe(df_resultado.head())
+    st.dataframe(resultado.head())
 
-    # Botão de download
-    csv = df_resultado.to_csv(index=False).encode('utf-8')
+    # 💾 Botão de download
+    csv = resultado.to_csv(index=False).encode("utf-8")
     st.download_button(
         label="⬇️ Baixar resultado como CSV",
         data=csv,
