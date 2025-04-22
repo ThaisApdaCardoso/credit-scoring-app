@@ -3,10 +3,6 @@
 import pandas            as pd
 import streamlit         as st
 
-from io                     import BytesIO
-from pycaret.classification import load_model, predict_model
-
-
 @st.cache
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
