@@ -9,7 +9,7 @@ Original file is located at
 
 import streamlit as st
 import pandas as pd
-import joblib
+from pycaret.classification import load_model, predict_model
 
 st.set_page_config(page_title="Credit Scoring App", layout="wide")
 st.title("🏦 Credit Scoring App")
