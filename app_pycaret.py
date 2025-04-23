@@ -26,23 +26,30 @@ modelo = carregar_modelo()
 
 # ✅ Quando o arquivo for enviado
 if uploaded_file is not None:
-    df = pd.read_feather(uploaded_file)
-
-    st.subheader("📄 Dados carregados:")
-    st.dataframe(df.head())
-
-    # 🔮 Previsões
     try:
-    resultado = predict_model(modelo, data=df)
-    st.subheader("📊 Dados com previsões:")
-    st.dataframe(resultado.head())
+        if uploaded_file.name.endswith(".csv"):
+            df = pd.read_csv(uploaded_file)
+        elif uploaded_file.name.endswith(".ftr"):
+            df = pd.read_feather(uploaded_file)
+        else:
+            st.error("Formato de arquivo não suportado.")
+            st.stop()
 
-    # Download opcional
-    csv = resultado.to_csv(index=False).encode("utf-8")
-    st.download_button("⬇️ Baixar resultado como CSV", data=csv, file_name="previsoes.csv", mime="text/csv")
+        st.success("✅ Arquivo carregado com sucesso!")
+        st.subheader("📄 Dados carregados:")
+        st.dataframe(df.head())
 
-except Exception as e:
-    st.error(f"Erro ao aplicar o modelo: {e}")
+        # 🔮 Aplicar o modelo
+        resultado = predict_model(modelo, data=df)
+        st.subheader("📊 Dados com previsões:")
+        st.dataframe(resultado.head())
+
+        # ⬇️ Botão de download
+        csv = resultado.to_csv(index=False).encode("utf-8")
+        st.download_button("⬇️ Baixar resultado como CSV", data=csv, file_name="previsoes.csv", mime="text/csv")
+
+    except Exception as e:
+        st.error(f"Erro ao processar o arquivo ou aplicar o modelo: {e}")
 
     # 💾 Botão de download
     csv = resultado.to_csv(index=False).encode("utf-8")
