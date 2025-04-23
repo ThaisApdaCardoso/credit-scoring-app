@@ -11,11 +11,11 @@ import streamlit as st
 import pandas as pd
 from pycaret.classification import load_model, predict_model
 
-st.set_page_config(page_title="Credit Scoring com PyCaret", layout="wide")
-st.title("🏦 Credit Scoring App (via PyCaret)")
+st.set_page_config(page_title="Credit Scoring", layout="wide")
+st.title("🏦 Credit Scoring App ")
 
-# 📁 Upload do arquivo CSV
-uploaded_file = st.file_uploader("Faça upload do arquivo CSV para escoragem", type=["csv"])
+# 📁 Upload do arquivo
+uploaded_file = st.file_uploader("Envie o arquivo .ftr", type=["ftr"])
 
 # 📦 Carregar modelo salvo pelo PyCaret
 @st.cache_resource
@@ -26,7 +26,7 @@ modelo = carregar_modelo()
 
 # ✅ Quando o arquivo for enviado
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    df = pd.read_feather(uploaded_file)
 
     st.subheader("📄 Dados carregados:")
     st.dataframe(df.head())
