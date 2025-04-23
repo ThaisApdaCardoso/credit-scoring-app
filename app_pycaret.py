@@ -32,10 +32,17 @@ if uploaded_file is not None:
     st.dataframe(df.head())
 
     # 🔮 Previsões
+    try:
     resultado = predict_model(modelo, data=df)
-
-    st.subheader("📊 Resultado da escoragem:")
+    st.subheader("📊 Dados com previsões:")
     st.dataframe(resultado.head())
+
+    # Download opcional
+    csv = resultado.to_csv(index=False).encode("utf-8")
+    st.download_button("⬇️ Baixar resultado como CSV", data=csv, file_name="previsoes.csv", mime="text/csv")
+
+except Exception as e:
+    st.error(f"Erro ao aplicar o modelo: {e}")
 
     # 💾 Botão de download
     csv = resultado.to_csv(index=False).encode("utf-8")
