@@ -1,8 +1,8 @@
-pycaret
-pandas
-matplotlib
-scikit-learn
-scipy
-lightgbm
-streamlit
-joblib
+pycaret==3.3.2
+lightgbm==4.5.0
+scikit-learn==1.4.2
+pandas==2.1.4
+numpy==1.26.4
+matplotlib==3.7.5
+streamlit==1.32.2
+joblib==1.3.2
