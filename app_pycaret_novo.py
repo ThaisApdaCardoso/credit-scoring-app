@@ -1,5 +1,3 @@
-!pip install pycaret
-
 # Imports
 import pandas as pd
 import streamlit as st
