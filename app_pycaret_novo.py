@@ -1,3 +1,4 @@
+!pip install pycaret
 
 # Imports
 import pandas as pd
