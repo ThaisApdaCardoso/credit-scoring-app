@@ -1,13 +1,7 @@
 streamlit
-
 pandas
-
 pycaret==3.0.4
-
-scikit-learn
-
-lightgbm
-
+scikit-learn==1.2.2
+lightgbm==3.3.5
 xlsxwriter
-
 openpyxl
