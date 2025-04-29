@@ -12,10 +12,13 @@ Este projeto tem como objetivo desenvolver uma solução completa de **Credit Sc
 
 ---
 
-## 🚀 Como Acessar o App
+## 🚀 Resultados
 
 A aplicação web desenvolvida em Streamlit está disponível no Render:  
 🔗 [Acesse o app aqui](https://credit-scoring-app-xrgo.onrender.com/)
+
+Demonstração da aplicação em vídeo:
+🎬 https://github.com/user-attachments/assets/17b8664d-3dd0-440c-8b0c-6dbdf40a22b2
 
 ---
 
